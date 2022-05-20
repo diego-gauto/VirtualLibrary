@@ -1,13 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { ApolloProvider } from "@apollo/client";
+import "./styles/index.css";
+import App from "./components/App";
+import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter as Router } from "react-router-dom";
+import { client } from "./config/apolloConfig";
+import UserContextProvider from "./context/user.context";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+      <Router>
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
+      </Router>
+    </ApolloProvider>
   </React.StrictMode>
 );
 
