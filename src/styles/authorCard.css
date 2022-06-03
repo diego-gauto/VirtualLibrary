@@ -1,0 +1,10 @@
+.authorCard {
+  width: 300px;
+  border: none;
+  border-radius: 15px;
+  padding: 8px;
+  background-color: lightgray;
+  position: relative;
+  height: 280px;
+  margin-bottom: 10px;
+}

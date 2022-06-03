@@ -24,17 +24,17 @@ const UserContextProvider = ({ children }) => {
     setUser(null);
   }, []);
 
-  const signIn = useCallback((userId, token) => {
+  const signIn = useCallback((user, token) => {
     localStorage.setItem(AUTH.token, token);
-    localStorage.setItem(AUTH.user, JSON.stringify(userId));
-    setUser(userId);
+    localStorage.setItem(AUTH.user, JSON.stringify(user));
+    setUser(user);
   }, []);
 
   useEffect(() => {
     const restoreUser = () => {
-      const userId = localStorage.getItem(AUTH.user);
-      if (userId) {
-        const decodedUser = JSON.parse(userId);
+      const user = localStorage.getItem(AUTH.user);
+      if (user) {
+        const decodedUser = JSON.parse(user);
         setUser(decodedUser);
       }
     };

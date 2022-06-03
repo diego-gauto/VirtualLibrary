@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { LOGIN } from "../queries/login.queries";
+import { LOGIN } from "../graphQL/mutations/login.mutation";
 import { useUserContext } from "../context/user.context";
 
 const Login = () => {
@@ -14,16 +14,17 @@ const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       const {
-        login: { userId, token },
+        login: { user, token },
       } = data;
-      signIn(userId, token);
-      navigate("/", { replace: true });
+      signIn(user, token);
+      // navigate("/", { replace: true });
     },
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    login({ variables: { email, password } });
+    await login({ variables: { email, password } });
+    navigate("/userProfile");
   };
 
   function validateForm() {
