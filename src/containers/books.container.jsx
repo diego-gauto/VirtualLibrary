@@ -17,7 +17,6 @@ const AllBooks = () => {
 
   if (allBooks.length === 0) setAllBooks(data.getAllBooks);
 
-  console.log(allBooks);
   return (
     <Row md={3}>
       {allBooks.map((book) => {

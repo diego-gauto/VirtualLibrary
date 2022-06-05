@@ -1,19 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { CREATE_BOOK } from "../graphQL/mutations/createBook.mutation";
-import { AUTHORS } from "../graphQL/queries/authors.query";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/app.context";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
-  const [authorId, setAuthorId] = useState("");
-  const { allAuthors, setAllAuthors, allBooks, setAllBooks } =
-    useContext(AppContext);
+  const [authorId] = useState("");
+  const { allBooks, setAllBooks } = useContext(AppContext);
   const navigate = useNavigate();
-  const { data } = useQuery(AUTHORS);
   const [createBook, { loading, error }] = useMutation(CREATE_BOOK, {
     onCompleted: (data) => {
       window.alert(`Book ${title} has been created`);

@@ -1,17 +1,40 @@
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { useMutation } from "@apollo/client";
+import { useContext } from "react";
+import { AppContext } from "../context/app.context";
+import { DELETE_BOOK } from "../graphQL/mutations/deleteBook.mutation";
 import "../styles/bookCard.css";
 
 const BookCard = ({ book }) => {
   const { id, title, returnBookDate, author, isOnLoan } = book;
+  const { allBooks, setAllBooks } = useContext(AppContext);
+
+  const [deleteBook, { loading, error }] = useMutation(DELETE_BOOK, {
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
+
   const bookState = (returnBookDate) => {
     const now = new Date();
     return now > returnBookDate ? "Book on time" : "Book on penalization";
   };
+
   const parseDate = (date) => {
     return date.split("T")[0];
   };
-  console.log(book);
+
+  const handleDelete = () => {
+    deleteBook(parseInt(id));
+    const books = allBooks.filter((book) => book.id !== id);
+    setAllBooks(books);
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <Card className="bookCard text-center">
@@ -27,11 +50,16 @@ const BookCard = ({ book }) => {
           ) : (
             <div>
               <Button variant="primary"> Take out book</Button>
-              <Button variant="primary"> Delete book</Button>
+              <Button variant="primary" onClick={handleDelete}>
+                {" "}
+                Delete book
+              </Button>
             </div>
           )}
         </Card.Body>
-        <Card.Footer>{isOnLoan ? bookState() : "Available book"}</Card.Footer>
+        <Card.Footer>
+          {isOnLoan ? bookState(returnBookDate) : "Available book"}
+        </Card.Footer>
       </Card>
     </div>
   );
