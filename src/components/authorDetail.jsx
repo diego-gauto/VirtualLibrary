@@ -1,8 +1,9 @@
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
-import { Card, Button } from "react-bootstrap";
 import { AppContext } from "../context/app.context";
-import authorImg from "../images/carlos_ruiz_zafon.jpg";
+import BookCard from "../components/bookCard.component";
+import imgAuthor from "../images/icono-escritor.jpg";
+import "../styles/authorProfile.css";
 
 const AuthorDetails = () => {
   const { id } = useParams();
@@ -10,22 +11,24 @@ const AuthorDetails = () => {
 
   const author = allAuthors.filter((author) => author.id === Number(id))[0];
 
-  console.log(allAuthors);
-  console.log(author);
-  console.log(id);
-
   return (
-    <div>
-      <Card style={{ width: "18rem" }} className=" authorCard text-center">
-        <Card.Header>Author Number: {id}</Card.Header>
-        <Card.Img variant="top" src={authorImg} />
-        <Card.Body>
-          <Card.Title>Author: {author.fullName}</Card.Title>
-          <Button variant="primary"> Update author</Button>
-          <Button variant="primary"> Delete author</Button>
-        </Card.Body>
-      </Card>
-    </div>
+    <>
+      <div className="author-card">
+        <h3 className="author-title">{author.fullName}</h3>
+        <div className="ImgAuthor">
+          <img src={imgAuthor} alt="" />
+        </div>
+        <div className="button-container">
+          <button className="btn authorProfile-btn"> Add book </button>
+          <button className="btn authorProfile-btn"> Delete author </button>
+        </div>
+      </div>
+      <div className="row px-2">
+        {author.books.map((book) => {
+          return <BookCard key={book.id} book={{ ...book, author: author }} />;
+        })}
+      </div>
+    </>
   );
 };
 

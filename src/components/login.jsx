@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { LOGIN } from "../graphQL/mutations/login.mutation";
 import { useUserContext } from "../context/user.context";
+import imgUser from "../images/icono-usuario.jpg";
+import "../styles/forms.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -14,17 +14,16 @@ const Login = () => {
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       const {
-        login: { user, token },
+        login: { user, jwt },
       } = data;
-      signIn(user, token);
-      // navigate("/", { replace: true });
+      signIn(user, jwt);
+      navigate("/userProfile");
     },
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     await login({ variables: { email, password } });
-    navigate("/userProfile");
   };
 
   function validateForm() {
@@ -36,29 +35,39 @@ const Login = () => {
   }
 
   return (
-    <div className="Login">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
+    <div className="generic-form">
+      <form onSubmit={handleSubmit}>
+        <h3 className="title">Sign In</h3>
+        <div className="ImgUser">
+          <img src={imgUser} alt="" />
+        </div>
+        <div className="input-container">
+          <label className="label">Email address</label>
+          <input
             autoFocus
             type="email"
+            className="form-control"
+            placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-        </Form.Group>
-        <Form.Group size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="input-container">
+          <label className="label">Password</label>
+          <input
             type="password"
+            className="form-control"
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()}>
-          Login
-        </Button>
-      </Form>
+        </div>
+        <div className="button-container">
+          <button className="btn" type="submit">
+            Sign In
+          </button>
+        </div>
+      </form>
       {error && <p>{error.message}</p>}
     </div>
   );

@@ -1,10 +1,14 @@
 import UserProfileCard from "../components/userProfile.component";
 import { useUserContext } from "../context/user.context";
 import BookCard from "../components/bookCard.component";
+import { useEffect } from "react";
 
 const UserContainer = () => {
   const { user } = useUserContext();
   console.log(user);
+
+  useEffect(() => {}, [user]);
+
   return (
     <>
       <div>

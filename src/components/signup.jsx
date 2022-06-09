@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { SIGNUP } from "../graphQL/mutations/signup.mutation";
+import imgUser from "../images/icono-usuario.jpg";
+import "../styles/forms.css";
 
 const SignUp = () => {
   const [fullName, setFullName] = useState("");
@@ -12,15 +12,14 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [register, { loading, error }] = useMutation(SIGNUP, {
     onCompleted: (data) => {
-      console.log(data);
-      navigate("/login", { replace: true });
+      window.alert(`User: ${fullName} has been created`);
+      navigate("/login");
     },
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    register({ variables: { fullName, email, password } });
-    navigate("/login");
+    await register({ variables: { fullName, email, password } });
   };
 
   function validateForm() {
@@ -32,36 +31,49 @@ const SignUp = () => {
   }
 
   return (
-    <div className="Login">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="fullName">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control
+    <div className="generic-form">
+      <form onSubmit={handleSubmit}>
+        <h3 className="title">Sign Up</h3>
+        <div className="ImgUser">
+          <img src={imgUser} alt="" />
+        </div>
+        <div className="input-container">
+          <label className="label">User Name</label>
+          <input
             autoFocus
+            type="text"
+            className="form-control"
+            placeholder="Enter username"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
-        </Form.Group>
-        <Form.Group size="lg" controlId="email">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
+        </div>
+        <div className="input-container">
+          <label className="label">Email address</label>
+          <input
             type="email"
+            className="form-control"
+            placeholder="Enter email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-        </Form.Group>
-        <Form.Group size="lg" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        </div>
+        <div className="input-container">
+          <label className="label">Password</label>
+          <input
             type="password"
+            className="form-control"
+            placeholder="Enter password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()}>
-          SignUp
-        </Button>
-      </Form>
+        </div>
+        <div className="button-container">
+          <button className="btn" type="submit">
+            Sign Up
+          </button>
+        </div>
+      </form>
       {error && <p>{error.message}</p>}
     </div>
   );

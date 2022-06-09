@@ -17,17 +17,11 @@ const CreateRoutes = () => {
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<SignUp />} />
       <Route exact path="/userProfile" element={<UserContainer />} />
-      <Route exact path="/AllAuthors" element={<AllAuthors />} />
-      <Route path="/AllAuthors/:id" element={<AuthorDetails />} />
-      <Route exact path="/SearchAuthor" />
+      <Route exact path="/Authors" element={<AllAuthors />} />
+      <Route path="/Author/:id" element={<AuthorDetails />} />
       <Route exact path="/CreateAuthor" element={<CreateAuthor />} />
-      <Route exact path="/UpdateAuthor" />
-      <Route exact path="/DeleteAuthor" />
-      <Route exact path="/AllBooks" element={<AllBooks />} />
-      <Route exact path="/AllAvailableBooks" />
-      <Route exact path="/CreateBook" />
-      <Route exact path="/UpdateBook" />
-      <Route exact path="/DeleteBook" />
+      <Route exact path="/Books" element={<AllBooks />} />
+      <Route exact path="/AvailableBooks" />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
 import { useMutation } from "@apollo/client";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { CREATE_AUTHOR } from "../graphQL/mutations/createAuthor.mutation";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/app.context";
+import imgAuthor from "../images/icono-escritor.jpg";
+import "../styles/forms.css";
 
 const CreateAuthor = () => {
   const [fullName, setFullName] = useState("");
@@ -32,20 +32,29 @@ const CreateAuthor = () => {
   }
 
   return (
-    <div className="Login">
-      <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="fullName">
-          <Form.Label>Full Name</Form.Label>
-          <Form.Control
+    <div className="generic-form">
+      <form onSubmit={handleSubmit}>
+        <h3 className="title">New Author</h3>
+        <div className="ImgUser">
+          <img src={imgAuthor} alt="" />
+        </div>
+        <div className="input-container">
+          <label className="label">Author Name</label>
+          <input
             autoFocus
+            type="text"
+            className="form-control"
+            placeholder="Enter author name"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
-        </Form.Group>
-        <Button block size="lg" type="submit" disabled={!validateForm()}>
-          Create Author
-        </Button>
-      </Form>
+        </div>
+        <div className="button-container">
+          <button className="btn" type="submit">
+            Create author
+          </button>
+        </div>
+      </form>
       {error && <p>{error.message}</p>}
     </div>
   );

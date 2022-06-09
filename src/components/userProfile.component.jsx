@@ -1,43 +1,16 @@
 import "../styles/userProfile.css";
+import imgUser from "../images/icono-usuario.jpg";
 
 const UserProfileCard = ({ username, nBooks }) => {
   return (
-    <div className="container userContainer d-flex justify-content-center align-items-start">
-      <div className="userCard">
-        <div className="upper">
-          <img
-            src="https://lapiedradesisifo.com/wp-content/uploads/2019/10/libreria-para-empresas.jpg"
-            //          className="img-fluid"
-            height="80"
-            alt=""
-          />
-        </div>
-
-        <div className="user text-center">
-          <div className="profile">
-            <img
-              src="https://i.imgur.com/JgYD2nQ.jpg"
-              className="rounded-circle"
-              width="80"
-              alt=""
-            />
-          </div>
-        </div>
-
-        <div className="text-center">
-          <h4 className="mb-1 mt-1 ">{username} (user)</h4>
-
-          <button className="btn mb-4 mt-1 btn-primary btn-sm follow">
-            Edit profile
-          </button>
-
-          <div className="d-flex justify-content-center align-items-center mt-1 px-4">
-            <div className="stats">
-              <h6 className="mb-0 mt-2">Borrowed books</h6>
-              <span className>{nBooks}</span>
-            </div>
-          </div>
-        </div>
+    <div className="user-form">
+      <div className="ImgUserProfile">
+        <img src={imgUser} alt="" />
+      </div>
+      <div className="user-info">
+        <h3 className="user-title">{username}</h3>
+        <h5 className="user-subtitle">Books taken</h5>
+        <span className="user-text">{nBooks}</span>
       </div>
     </div>
   );

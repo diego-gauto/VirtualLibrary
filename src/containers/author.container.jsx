@@ -4,7 +4,6 @@ import { AUTHORS } from "../graphQL/queries/authors.query";
 import { Row } from "react-bootstrap";
 import { useContext, useEffect } from "react";
 import { AppContext } from "../context/app.context";
-import { Link } from "react-router-dom";
 
 const AllAutors = () => {
   const { allAuthors, setAllAuthors } = useContext(AppContext);
@@ -22,13 +21,11 @@ const AllAutors = () => {
     <Row md={3}>
       {allAuthors.map((author) => {
         return (
-          <Link to={`/AllAuthors/${author.id}`} key={author.id}>
-            <AuthorCard
-              key={author.id}
-              id={author.id}
-              fullName={author.fullName}
-            />
-          </Link>
+          <AuthorCard
+            key={author.id}
+            id={author.id}
+            fullName={author.fullName}
+          />
         );
       })}
     </Row>

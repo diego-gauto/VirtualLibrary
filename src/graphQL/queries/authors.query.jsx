@@ -8,6 +8,8 @@ export const AUTHORS = gql`
       books {
         id
         title
+        isOnLoan
+        returnBookDate
       }
     }
   }

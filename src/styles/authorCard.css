@@ -1,10 +1,38 @@
-.authorCard {
+.author-card {
+  background-color: white;
   width: 300px;
-  border: none;
-  border-radius: 15px;
-  padding: 8px;
-  background-color: lightgray;
+  height: 300px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.author-title {
+  font-size: 30px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.ImgAuthor {
+  display: flex;
   position: relative;
-  height: 280px;
-  margin-bottom: 10px;
+  justify-content: center;
+}
+.ImgAuthor img {
+  height: 130px;
+  width: 100px;
+}
+
+.author-btn {
+  width: 150px;
+  height: 50px;
+  margin: 15px;
+  font-size: 15px;
+  align-items: center;
 }
