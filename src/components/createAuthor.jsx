@@ -1,20 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { CREATE_AUTHOR } from "../graphQL/mutations/createAuthor.mutation";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../context/app.context";
 import imgAuthor from "../images/icono-escritor.jpg";
 import "../styles/forms.css";
+import { AUTHORS } from "../graphQL/queries/authors.query";
 
 const CreateAuthor = () => {
   const [fullName, setFullName] = useState("");
-  const { allAuthors, setAllAuthors } = useContext(AppContext);
   const navigate = useNavigate();
   const [createAuthor, { loading, error }] = useMutation(CREATE_AUTHOR, {
-    onCompleted: (data) => {
+    refetchQueries: [{ query: AUTHORS }],
+    awaitRefetchQueries: true,
+    onCompleted: () => {
       window.alert(`Author ${fullName} has been created`);
-      setAllAuthors([...allAuthors, data.createAuthor]);
-      navigate("/AllAuthors", { replace: true });
+      navigate("/Authors");
     },
   });
 

@@ -14,6 +14,7 @@ export const LOGIN = gql`
           isOnLoan
           author {
             fullName
+            id
           }
           borrowBookDate
           returnBookDate

@@ -1,15 +1,67 @@
-import { useContext } from "react";
-import { useParams } from "react-router-dom";
-import { AppContext } from "../context/app.context";
+import { useMutation, useQuery } from "@apollo/client";
+import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "../components/bookCard.component";
+import { CREATE_BOOK } from "../graphQL/mutations/createBook.mutation";
+import { DELETE_AUTHOR } from "../graphQL/mutations/deleteAuthor.mutation";
+import { AUTHOR } from "../graphQL/queries/author.query";
+import { AUTHORS } from "../graphQL/queries/authors.query";
+import { BOOKS } from "../graphQL/queries/books.query";
 import imgAuthor from "../images/icono-escritor.jpg";
 import "../styles/authorProfile.css";
 
 const AuthorDetails = () => {
   const { id } = useParams();
-  const { allAuthors } = useContext(AppContext);
 
-  const author = allAuthors.filter((author) => author.id === Number(id))[0];
+  const parseId = parseFloat(id);
+  const navigate = useNavigate();
+
+  const { loading, error, data } = useQuery(AUTHOR, {
+    variables: { id: parseId },
+  });
+
+  const [createBook, { loadingCreate, errorCreate }] = useMutation(
+    CREATE_BOOK,
+    {
+      refetchQueries: [
+        { query: BOOKS },
+        { query: AUTHOR, variables: { id: parseId } },
+      ],
+      awaitRefetchQueries: true,
+      onCompleted: () => {
+        window.alert(`Book  has been created`);
+      },
+    }
+  );
+
+  const [deleteAuthor, { loadingDelete, errorDelete }] = useMutation(
+    DELETE_AUTHOR,
+    {
+      refetchQueries: [{ query: AUTHORS }, { query: BOOKS }],
+      awaitRefetchQueries: true,
+      onCompleted: () => {
+        window.alert(
+          `Author ${author.fullName} has been deleted and also his/her books`
+        );
+        navigate("/Authors");
+      },
+    }
+  );
+
+  const handleDelete = () => {
+    deleteAuthor({ variables: { id: parseId } });
+  };
+
+  const handleAddBook = () => {
+    const title = prompt("New book title");
+    createBook({ variables: { title: title, authorId: parseId } });
+  };
+
+  if (loading || loadingDelete || loadingCreate) return "Loading...";
+  if (error) return `Error! ${error.message}`;
+  if (errorCreate) return `Error! ${errorCreate.message}`;
+  if (errorDelete) return `Error! ${errorDelete.message}`;
+
+  const author = data.getAuthorById;
 
   return (
     <>
@@ -19,8 +71,14 @@ const AuthorDetails = () => {
           <img src={imgAuthor} alt="" />
         </div>
         <div className="button-container">
-          <button className="btn authorProfile-btn"> Add book </button>
-          <button className="btn authorProfile-btn"> Delete author </button>
+          <button className="btn authorProfile-btn" onClick={handleAddBook}>
+            {" "}
+            Add book{" "}
+          </button>
+          <button className="btn authorProfile-btn" onClick={handleDelete}>
+            {" "}
+            Delete author{" "}
+          </button>
         </div>
       </div>
       <div className="row px-2">

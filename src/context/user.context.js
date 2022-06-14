@@ -12,6 +12,7 @@ import { AUTH } from "../constants";
 const UserContext = createContext({
   signIn: () => {},
   signOut: () => {},
+  updateUser: () => {},
   user: null,
 });
 
@@ -26,6 +27,11 @@ const UserContextProvider = ({ children }) => {
 
   const signIn = useCallback((user, token) => {
     localStorage.setItem(AUTH.token, token);
+    localStorage.setItem(AUTH.user, JSON.stringify(user));
+    setUser(user);
+  }, []);
+
+  const updateUser = useCallback((user) => {
     localStorage.setItem(AUTH.user, JSON.stringify(user));
     setUser(user);
   }, []);
@@ -46,9 +52,10 @@ const UserContextProvider = ({ children }) => {
     () => ({
       signIn,
       signOut,
+      updateUser,
       user,
     }),
-    [signIn, signOut, user]
+    [signIn, signOut, updateUser, user]
   );
 
   return (

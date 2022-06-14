@@ -7,8 +7,7 @@ import "../styles/App.css";
 
 function App() {
   const [isAuthenticated, userHasAuthenticated] = useState(false);
-  const [allAuthors, setAllAuthors] = useState([]);
-  const [allBooks, setAllBooks] = useState([]);
+  const [hasReturn, setHasReturn] = useState(false);
   const { user } = useUserContext();
 
   useEffect(() => {
@@ -25,10 +24,8 @@ function App() {
         value={{
           isAuthenticated,
           userHasAuthenticated,
-          allAuthors,
-          setAllAuthors,
-          allBooks,
-          setAllBooks,
+          hasReturn,
+          setHasReturn,
         }}
       >
         <CreateRoutes />

@@ -30,7 +30,7 @@ const NavBar = ({ isAuthenticated, userHasAuthenticated }) => {
         <LinkContainer to="/">
           <Navbar.Brand className="font-weight-bold text-muted">
             {" "}
-            Indy{" "}
+            VLibrary{" "}
           </Navbar.Brand>
         </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

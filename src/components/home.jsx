@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div className="Home">
       <div className="lander">
-        <h1>Indy</h1>
+        <h1>VLibrary</h1>
         <p className="text-muted">A simple virtual library app</p>
       </div>
     </div>

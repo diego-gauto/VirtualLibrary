@@ -27,11 +27,11 @@
 
 .ImgBook {
   display: flex;
-  position: relative;
+  justify-content: center;
 }
 .ImgBook img {
-  height: 130px;
-  width: 100px;
+  height: 110px;
+  width: 85px;
 }
 
 .book-info {
@@ -50,6 +50,7 @@
 
 .book-date {
   font-size: 15px;
+  margin-top: 5px;
   margin-bottom: 5px;
   display: flex;
   justify-content: center;
@@ -65,6 +66,6 @@
 .book-btn {
   width: 120px;
   height: 40px;
-  margin: 15px;
+  margin: 10px;
   font-size: 15px;
 }
