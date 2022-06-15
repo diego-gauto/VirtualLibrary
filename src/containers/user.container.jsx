@@ -6,10 +6,6 @@ import { useQuery } from "@apollo/client";
 
 const UserContainer = () => {
   const { user } = useUserContext();
-  //const [hasReturn, setHasReturn] = useState(true);
-
-  // useEffect(() => {}, [hasReturn]);
-  // console.log(hasReturn);
 
   const { loading, error, data } = useQuery(USER, {
     variables: { id: user.id },
@@ -28,7 +24,7 @@ const UserContainer = () => {
       <div>
         <UserProfileCard
           username={userInfo.fullName}
-          nBooks={userInfo.nBooks}
+          nBooks={userInfo.books.length}
         />
       </div>
       <div className="row px-2">

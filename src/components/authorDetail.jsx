@@ -1,16 +1,19 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "../components/bookCard.component";
+import { useUserContext } from "../context/user.context";
 import { CREATE_BOOK } from "../graphQL/mutations/createBook.mutation";
 import { DELETE_AUTHOR } from "../graphQL/mutations/deleteAuthor.mutation";
 import { AUTHOR } from "../graphQL/queries/author.query";
 import { AUTHORS } from "../graphQL/queries/authors.query";
 import { BOOKS } from "../graphQL/queries/books.query";
+import { USER } from "../graphQL/queries/user.query";
 import imgAuthor from "../images/icono-escritor.jpg";
 import "../styles/authorProfile.css";
 
 const AuthorDetails = () => {
   const { id } = useParams();
+  const { user } = useUserContext();
 
   const parseId = parseFloat(id);
   const navigate = useNavigate();
@@ -36,7 +39,11 @@ const AuthorDetails = () => {
   const [deleteAuthor, { loadingDelete, errorDelete }] = useMutation(
     DELETE_AUTHOR,
     {
-      refetchQueries: [{ query: AUTHORS }, { query: BOOKS }],
+      refetchQueries: [
+        { query: AUTHORS },
+        { query: BOOKS },
+        { query: USER, variables: { id: user.id } },
+      ],
       awaitRefetchQueries: true,
       onCompleted: () => {
         window.alert(
@@ -48,7 +55,9 @@ const AuthorDetails = () => {
   );
 
   const handleDelete = () => {
-    deleteAuthor({ variables: { id: parseId } });
+    deleteAuthor({ variables: { id: parseId } }).catch((error) =>
+      alert(`Author can't delete. ${error.message}`)
+    );
   };
 
   const handleAddBook = () => {
