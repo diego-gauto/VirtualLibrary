@@ -11,7 +11,7 @@ import "../styles/bookCard.css";
 
 const BookCard = ({ book }) => {
   const { id, title, returnBookDate, author, isOnLoan } = book;
-  const { user, updateUser } = useUserContext();
+  const { user } = useUserContext();
   const userId = user.id;
   const authorId = author.id;
 
@@ -41,7 +41,6 @@ const BookCard = ({ book }) => {
       awaitRefetchQueries: true,
       onCompleted: () => {
         window.alert(`Book ${title} has been taken`);
-        updateUserOnTakeOut(user);
       },
     }
   );
@@ -57,32 +56,9 @@ const BookCard = ({ book }) => {
       awaitRefetchQueries: true,
       onCompleted: () => {
         window.alert(`Book ${title} has been return`);
-        updateUserOnReturn(user);
-        //       if (hasReturn) setHasReturn(false);
       },
     }
   );
-
-  const updateUserOnReturn = (user) => {
-    const updatedUser = user;
-    updatedUser.nBooks--;
-    const books = user.books.filter((book) => book.id !== id);
-    updatedUser.books = books;
-    updateUser(updatedUser);
-  };
-
-  const updateUserOnTakeOut = (user) => {
-    const updatedUser = user;
-    const date = new Date();
-    const res = new Date(date.setDate(date.getDate() + 7)).toISOString();
-    console.log(res, typeof res);
-    updatedUser.nBooks++;
-
-    const newBook = { ...book, returnBookDate: res, isOnLoan: true };
-    const books = [...user.books, newBook];
-    updatedUser.books = books;
-    updateUser(updatedUser);
-  };
 
   const bookState = (returnBookDate) => {
     const now = new Date();

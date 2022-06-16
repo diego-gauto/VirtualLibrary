@@ -31,11 +31,6 @@ const UserContextProvider = ({ children }) => {
     setUser(user);
   }, []);
 
-  const updateUser = useCallback((user) => {
-    localStorage.setItem(AUTH.user, JSON.stringify(user));
-    setUser(user);
-  }, []);
-
   useEffect(() => {
     const restoreUser = () => {
       const user = localStorage.getItem(AUTH.user);
@@ -52,10 +47,9 @@ const UserContextProvider = ({ children }) => {
     () => ({
       signIn,
       signOut,
-      updateUser,
       user,
     }),
-    [signIn, signOut, updateUser, user]
+    [signIn, signOut, user]
   );
 
   return (

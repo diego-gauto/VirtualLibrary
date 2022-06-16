@@ -1,11 +1,20 @@
 import UserProfileCard from "../components/userProfile.component";
-import { useUserContext } from "../context/user.context";
 import BookCard from "../components/bookCard.component";
 import { USER } from "../graphQL/queries/user.query";
 import { useQuery } from "@apollo/client";
+import { AUTH } from "../constants";
 
 const UserContainer = () => {
-  const { user } = useUserContext();
+  const restoreUser = () => {
+    const user = localStorage.getItem(AUTH.user);
+    let decodedUser = {};
+    if (user) {
+      decodedUser = JSON.parse(user);
+    }
+    return decodedUser;
+  };
+
+  const user = restoreUser();
 
   const { loading, error, data } = useQuery(USER, {
     variables: { id: user.id },

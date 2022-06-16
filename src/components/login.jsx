@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 import { LOGIN } from "../graphQL/mutations/login.mutation";
 import { useUserContext } from "../context/user.context";
 import imgUser from "../images/icono-usuario.jpg";
@@ -10,14 +9,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn } = useUserContext();
-  const navigate = useNavigate();
   const [login, { loading, error }] = useMutation(LOGIN, {
     onCompleted: (data) => {
       const {
         login: { user, jwt },
       } = data;
       signIn(user, jwt);
-      navigate("/userProfile");
     },
   });
 

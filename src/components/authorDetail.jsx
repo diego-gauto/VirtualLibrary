@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "@apollo/client";
+import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import BookCard from "../components/bookCard.component";
-import { useUserContext } from "../context/user.context";
-import { CREATE_BOOK } from "../graphQL/mutations/createBook.mutation";
+import { AUTH } from "../constants";
 import { DELETE_AUTHOR } from "../graphQL/mutations/deleteAuthor.mutation";
 import { AUTHOR } from "../graphQL/queries/author.query";
 import { AUTHORS } from "../graphQL/queries/authors.query";
@@ -12,8 +12,17 @@ import imgAuthor from "../images/icono-escritor.jpg";
 import "../styles/authorProfile.css";
 
 const AuthorDetails = () => {
+  const restoreUser = () => {
+    const user = localStorage.getItem(AUTH.user);
+    let decodedUser = {};
+    if (user) {
+      decodedUser = JSON.parse(user);
+    }
+    return decodedUser;
+  };
+
+  const user = restoreUser();
   const { id } = useParams();
-  const { user } = useUserContext();
 
   const parseId = parseFloat(id);
   const navigate = useNavigate();
@@ -21,20 +30,6 @@ const AuthorDetails = () => {
   const { loading, error, data } = useQuery(AUTHOR, {
     variables: { id: parseId },
   });
-
-  const [createBook, { loadingCreate, errorCreate }] = useMutation(
-    CREATE_BOOK,
-    {
-      refetchQueries: [
-        { query: BOOKS },
-        { query: AUTHOR, variables: { id: parseId } },
-      ],
-      awaitRefetchQueries: true,
-      onCompleted: () => {
-        window.alert(`Book  has been created`);
-      },
-    }
-  );
 
   const [deleteAuthor, { loadingDelete, errorDelete }] = useMutation(
     DELETE_AUTHOR,
@@ -60,14 +55,8 @@ const AuthorDetails = () => {
     );
   };
 
-  const handleAddBook = () => {
-    const title = prompt("New book title");
-    createBook({ variables: { title: title, authorId: parseId } });
-  };
-
-  if (loading || loadingDelete || loadingCreate) return "Loading...";
+  if (loading || loadingDelete) return "Loading...";
   if (error) return `Error! ${error.message}`;
-  if (errorCreate) return `Error! ${errorCreate.message}`;
   if (errorDelete) return `Error! ${errorDelete.message}`;
 
   const author = data.getAuthorById;
@@ -79,16 +68,14 @@ const AuthorDetails = () => {
         <div className="ImgAuthor">
           <img src={imgAuthor} alt="" />
         </div>
-        <div className="button-container">
-          <button className="btn authorProfile-btn" onClick={handleAddBook}>
-            {" "}
-            Add book{" "}
-          </button>
-          <button className="btn authorProfile-btn" onClick={handleDelete}>
-            {" "}
-            Delete author{" "}
-          </button>
-        </div>
+
+        <Link to={`/CreateBook/${id}`}>
+          <button className="btn authorProfile-btn"> Add book </button>
+        </Link>
+        <button className="btn authorProfile-btn" onClick={handleDelete}>
+          {" "}
+          Delete author{" "}
+        </button>
       </div>
       <div className="row px-2">
         {author.books.map((book) => {
