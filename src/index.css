@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  color: #333;
+  font-size: 16px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 400;
+  font-family: "Fira Sans", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+span {
+  font-weight: 500;
+  font-family: "Fira Sans", sans-serif;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  height: 30px;
+  width: 300px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.form {
+  background-color: white;
+  width: 500px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+}
+
+.title {
+  font-size: 40px;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: center;
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+.img-form {
+  width: 120px;
+  height: 120px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  margin: 5px;
+  margin-bottom: 30px;
+}
+
+.label {
+  font-size: 20px;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-button {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  border-radius: 0.6em;
+  cursor: pointer;
+  width: 200px;
+  height: 40px;
+  margin-top: 10px;
+  font-size: 17px;
+  text-align: center;
+  font-family: "Fira Sans", sans-serif;
+  border-color: #3498db;
+  transition: all 150ms ease-in-out;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  color: #fff;
+}
+.btn:hover,
+.btn:focus {
+  color: #3498db;
+  outline: 0;
+}
+
+.btn:hover {
+  box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  background-color: #3498db;
+}

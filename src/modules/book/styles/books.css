@@ -1,0 +1,17 @@
+.selector {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.book-img {
+  height: 250px;
+}
+
+.book-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.book-info {
+  margin-left: 5px;
+}

@@ -1,0 +1,13 @@
+.author-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.author-img {
+  height: 130px;
+  width: 130px;
+}
+
+.author-info {
+  margin-left: 5px;
+}

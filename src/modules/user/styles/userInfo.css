@@ -1,0 +1,16 @@
+.userContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.userImg {
+  height: 150px;
+  width: 150px;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 1em;
+}
