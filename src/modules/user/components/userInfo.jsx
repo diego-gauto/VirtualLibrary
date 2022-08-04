@@ -1,6 +1,7 @@
 import "../styles/userInfo.css";
 import imgUser from "../../../images/icono-usuario.jpg";
 import { Container } from "react-bootstrap";
+import React from "react";
 
 const UserInfo = ({ username, email, nBooks }) => {
   return (

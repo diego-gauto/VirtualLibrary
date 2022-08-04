@@ -1,3 +1,4 @@
+import React from "react";
 import UserInfo from "./components/userInfo";
 import { USER } from "./graphQL/user.query";
 import { useQuery } from "@apollo/client";

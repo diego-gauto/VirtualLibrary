@@ -1,3 +1,4 @@
+import React from "react";
 import { Container } from "react-bootstrap";
 import imgAuthor from "../../../images/icono-escritor.jpg";
 import "../styles/authors.css";

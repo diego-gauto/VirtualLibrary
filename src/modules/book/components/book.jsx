@@ -13,6 +13,7 @@ import { USER } from "../../user/graphQL/user.query";
 import { restoreUser } from "../../user/utils/restoreUser";
 import BookInfo from "./bookInfo";
 import "../styles/books.css";
+import React from "react";
 
 const Book = () => {
   const navigate = useNavigate();

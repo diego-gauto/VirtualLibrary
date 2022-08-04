@@ -1,5 +1,6 @@
 import { Table } from "react-bootstrap";
 import AuthorRow from "./authorRow";
+import React from "react";
 
 const AuthorList = ({ authors }) => {
   return (

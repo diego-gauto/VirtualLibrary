@@ -1,6 +1,7 @@
 import { Container } from "react-bootstrap";
 import imgBook from "../../../images/portada-generica.jpg";
 import parseDate from "../../../utils/parseDate";
+import React from "react";
 
 const BookInfo = ({ book }) => {
   const { title, author } = book;
