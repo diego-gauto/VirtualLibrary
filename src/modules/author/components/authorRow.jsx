@@ -1,3 +1,4 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const AuthorRow = ({ author }) => {
@@ -8,10 +9,12 @@ const AuthorRow = ({ author }) => {
   };
 
   return (
-    <tr className="pointer" onClick={handleClick}>
-      <td>{author.fullName}</td>
-      <td>{author.books.length}</td>
-    </tr>
+    <>
+      <tr className="pointer" onClick={handleClick}>
+        <td>{author.fullName}</td>
+        <td>{author.books.length}</td>
+      </tr>
+    </>
   );
 };
 
