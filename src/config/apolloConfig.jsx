@@ -13,7 +13,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://sv-library.herokuapp.com/graphql",
 });
 
 export const client = new ApolloClient({
