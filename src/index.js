@@ -5,13 +5,24 @@ import "./index.css";
 import App from "./modules/app/app";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
-import { client } from "./config/apolloConfig";
+import { initApolloClient, getApolloClient } from "./config/apolloConfig";
 import UserContextProvider from "./context/user.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+// Inicializa Apollo usando la variable de entorno del .env correspondiente
+const GRAPHQL_URI = process.env.REACT_APP_GRAPHQL_URL;
+if (!GRAPHQL_URI) {
+  throw new Error(
+    "REACT_APP_GRAPHQL_URL no está definida. Agrega la variable al archivo .env.development o .env.production según el entorno."
+  );
+}
+
+initApolloClient(GRAPHQL_URI);
+
 root.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    <ApolloProvider client={getApolloClient()}>
       <Router>
         <UserContextProvider>
           <App />
